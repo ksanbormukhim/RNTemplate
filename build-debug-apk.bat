@@ -1,0 +1,9 @@
+@echo off
+echo Building Android debug app...
+call npx react-native build-android
+echo Bundling resources...
+call npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+echo Building debug APK...
+cd android
+call gradlew assembleDebug
+cd ..

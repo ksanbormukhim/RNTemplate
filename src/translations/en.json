@@ -1,0 +1,5 @@
+{
+    "welcome": "Welcome back {{name}}",
+    "greeting": "Good Day, {{name}} !",
+    "appNameFull": "App Name"
+}
