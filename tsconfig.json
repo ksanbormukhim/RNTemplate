@@ -2,13 +2,6 @@
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "TAD:app/*": ["./src/app/*"],
-      "TAD:assets/*": ["./src/assets/*"],
-      "TAD:components/*": ["./src/components/*"],
-      "TAD:context/*": ["./src/context/*"],
-      "TAD:translations": ["./src/translations/*"],
-      "TAD:utils/*": ["./src/utils/*"]
-    }
+    "paths": {}
   }
 }

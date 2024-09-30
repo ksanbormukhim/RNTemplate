@@ -9,21 +9,28 @@ export enum AuthState {
 type AuthContextType = {
   userData: UserDataType | undefined;
   setUserData: React.Dispatch<React.SetStateAction<UserDataType | undefined>>;
+  authState: AuthState;
+  setAuthState: React.Dispatch<React.SetStateAction<AuthState>>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataType>();
+  const [authState, setAuthState] = useState<AuthState>(AuthState.none);
 
-  <AuthContext.Provider
-    value={{
-      userData,
-      setUserData,
-    }}
-  >
-    {children}
-  </AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        userData,
+        setUserData,
+        authState,
+        setAuthState,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
