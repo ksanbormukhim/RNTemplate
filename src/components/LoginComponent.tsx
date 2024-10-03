@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, TextInput, View } from 'react-native';
-import { useAuthStore } from '../store/useAuthStore';
+import { authStore } from '../store/authStore';
 
 const LoginComponent = () => {
-  const { login } = useAuthStore();
+  const { login } = authStore();
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
 

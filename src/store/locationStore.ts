@@ -1,7 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { create } from 'zustand';
-import { useRootStore } from './useRootStore';
+import { modalsUIStore } from './modalsUIStore';
 
 type LocationDataType = {
   latitude: number;
@@ -19,7 +19,7 @@ type LocationState = {
   stopLocTracking: () => Promise<void>;
 };
 
-export const useLocationStore = create<LocationState>((set) => {
+export const locationStore = create<LocationState>((set) => {
   return {
     location: null,
     isGettingLocation: false,
@@ -43,12 +43,12 @@ export const useLocationStore = create<LocationState>((set) => {
 
     getLocation: async () => {
       set({ isGettingLocation: true });
-      const hasPermission = await useLocationStore
+      const hasPermission = await locationStore
         .getState()
         .requestLocationPermission();
       if (!hasPermission) {
         set({ isGettingLocation: false });
-        const { showErrorAlert } = useRootStore.getState();
+        const { showErrorAlert } = modalsUIStore.getState();
         showErrorAlert({ message: 'Error getting Location' });
         return;
       }
@@ -62,7 +62,7 @@ export const useLocationStore = create<LocationState>((set) => {
         },
         (error) => {
           set({ isGettingLocation: false });
-          const { showErrorAlert } = useRootStore.getState();
+          const { showErrorAlert } = modalsUIStore.getState();
           showErrorAlert({
             message: 'Error getting Location\n' + error.message,
           });
@@ -73,12 +73,12 @@ export const useLocationStore = create<LocationState>((set) => {
 
     startLocTracking: async () => {
       set({ trackingLocStatus: 'getting_loc' });
-      const hasPermission = await useLocationStore
+      const hasPermission = await locationStore
         .getState()
         .requestLocationPermission();
       if (!hasPermission) {
         set({ trackingLocStatus: 'stop' });
-        const { showErrorAlert } = useRootStore.getState();
+        const { showErrorAlert } = modalsUIStore.getState();
         showErrorAlert({
           message: 'Error getting Location\nPermission Denied',
         });
@@ -91,7 +91,7 @@ export const useLocationStore = create<LocationState>((set) => {
         },
         (error) => {
           set({ trackingLocStatus: 'error_getting_loc' });
-          const { showErrorAlert } = useRootStore.getState();
+          const { showErrorAlert } = modalsUIStore.getState();
           showErrorAlert({
             message: 'Error getting Location\n' + error.message,
           });
@@ -105,7 +105,7 @@ export const useLocationStore = create<LocationState>((set) => {
         },
         (error) => {
           set({ trackingLocStatus: 'error_tracking_loc' });
-          const { showErrorAlert } = useRootStore.getState();
+          const { showErrorAlert } = modalsUIStore.getState();
           showErrorAlert({
             message: 'Error Tracking Location\n' + error.message,
           });
@@ -116,7 +116,7 @@ export const useLocationStore = create<LocationState>((set) => {
     },
 
     stopLocTracking: async () => {
-      const { locTrackingID } = useLocationStore.getState();
+      const { locTrackingID } = locationStore.getState();
       if (locTrackingID !== null) {
         Geolocation.clearWatch(locTrackingID);
       }

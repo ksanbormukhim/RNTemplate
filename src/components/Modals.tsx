@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useRootStore } from '../store/useRootStore';
+import { modalsUIStore } from '../store/modalsUIStore';
 
 export default function Modals() {
   const {
@@ -19,7 +19,7 @@ export default function Modals() {
     hideAlert,
     hideLoading,
     hideToast,
-  } = useRootStore();
+  } = modalsUIStore();
 
   return (
     <>

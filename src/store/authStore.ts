@@ -15,7 +15,7 @@ type AuthStateType = {
   logout: () => void;
 };
 
-export const useAuthStore = create<AuthStateType>((set) => {
+export const authStore = create<AuthStateType>((set) => {
   return {
     userData: undefined,
     authState: AuthState.none,

@@ -6,7 +6,7 @@ import AdminApp from './src/app/AdminApp';
 import LandingApp from './src/app/LandingApp';
 import PublicApp from './src/app/PublicApp';
 import Modals from './src/components/Modals';
-import { AuthState, useAuthStore } from './src/store/useAuthStore';
+import { AuthState, authStore } from './src/store/authStore';
 import i18n from './src/utils/i18n';
 
 function App() {
@@ -29,7 +29,7 @@ export default App;
 
 function Root() {
   // const { authState } = useAuth();
-  const { authState } = useAuthStore();
+  const { authState } = authStore();
 
   function conditionalRender() {
     switch (authState) {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { useAuthStore } from '../store/useAuthStore';
+import { authStore } from '../store/authStore';
 
 export default function AdminApp() {
-  const { logout } = useAuthStore();
+  const { logout } = authStore();
   return (
     <View>
       <Text>AdminApp</Text>
