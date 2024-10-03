@@ -1,7 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import React, { createContext, useContext, useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
-import { useRoot } from './RootContext';
+// import { useRoot } from './RootContext';
 
 type LocationContextType = {
   getLocation: () => Promise<void>;
@@ -23,7 +23,7 @@ export const LocationProvider = ({ children }: any) => {
 
   const [locTrackingID, setLocTrackingID] = useState<number | null>(null);
 
-  const { showErrorModal } = useRoot();
+  // const { showErrorModal } = useRoot();
 
   const requestLocationPermission = async () => {
     try {
@@ -51,7 +51,7 @@ export const LocationProvider = ({ children }: any) => {
     setIsGettingLocation(true);
     if (!(await requestLocationPermission())) {
       console.error('Cannot get Location');
-      showErrorModal('Error getting Location');
+      // showErrorModal('Error getting Location');
       return;
     }
 
@@ -66,7 +66,7 @@ export const LocationProvider = ({ children }: any) => {
       (error) => {
         console.error('Error getting current location:', error);
         setIsGettingLocation(false);
-        showErrorModal('Error getting Location\n' + error.message);
+        // showErrorModal('Error getting Location\n' + error.message);
       },
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     );
@@ -76,7 +76,7 @@ export const LocationProvider = ({ children }: any) => {
     setTrackingLocStatus('getting_loc');
     if (!(await requestLocationPermission())) {
       console.error('Cannot get Location');
-      showErrorModal('Error getting Location\nPermission Denied');
+      // showErrorModal('Error getting Location\nPermission Denied');
       return;
     }
 
@@ -88,7 +88,7 @@ export const LocationProvider = ({ children }: any) => {
       (error) => {
         console.error('Error getting current location:', error);
         setTrackingLocStatus('error_getting_loc');
-        showErrorModal('Error getting Location\n' + error.message);
+        // showErrorModal('Error getting Location\n' + error.message);
       },
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     );
@@ -101,7 +101,7 @@ export const LocationProvider = ({ children }: any) => {
       (error) => {
         console.error('Error watching location:', error);
         setTrackingLocStatus('error_tracking_loc');
-        showErrorModal('Error Tracking Location\n' + error.message);
+        // showErrorModal('Error Tracking Location\n' + error.message);
       },
       { enableHighAccuracy: false, distanceFilter: 5 } // Set a minimum distance for location updates (e.g., 5 meters)
     );
