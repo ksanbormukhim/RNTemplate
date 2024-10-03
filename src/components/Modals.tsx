@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useRootStore } from '../store/useRootStore';
 
-const GlobalModals = () => {
+export default function Modals() {
   const {
     toast,
     loading,
@@ -102,6 +102,7 @@ const GlobalModals = () => {
         </View>
       </Modal>
 
+      {/* Toast Modal */}
       <Modal animationType="slide" transparent visible={!!toast}>
         <View style={styles.bottomedView}>
           <View style={styles.toastView}>
@@ -122,7 +123,7 @@ const GlobalModals = () => {
       </Modal>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -200,5 +201,3 @@ const styles = StyleSheet.create({
     gap: 15,
   },
 });
-
-export default GlobalModals;

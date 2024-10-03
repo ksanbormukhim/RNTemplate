@@ -1,24 +1,28 @@
 import React, { useEffect } from 'react';
-
+import { I18nextProvider } from 'react-i18next';
 import { SafeAreaView } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import AdminApp from './src/app/AdminApp';
 import LandingApp from './src/app/LandingApp';
 import PublicApp from './src/app/PublicApp';
-import GlobalModals from './src/components/GlobalModals';
+import Modals from './src/components/Modals';
 import { AuthProvider, AuthState, useAuth } from './src/context/AuthContext';
+import i18n from './src/utils/i18n';
+
 function App() {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   return (
-    <AuthProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Root />
-        <GlobalModals />
-      </SafeAreaView>
-    </AuthProvider>
+    <I18nextProvider i18n={i18n}>
+      <AuthProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Root />
+          <Modals />
+        </SafeAreaView>
+      </AuthProvider>
+    </I18nextProvider>
   );
 }
 export default App;
@@ -26,22 +30,51 @@ export default App;
 function Root() {
   const { authState } = useAuth();
 
-  // const { showLoading, hideLoading, showErrorAlert, showAlert, showToast } =
-  //   useRootStore();
+  // useEffect(() => {
+  //   // Insert a new user
+  //   insertUser('John Doe', 30);
 
-  function conditionalRender() {
-    switch (authState) {
-      case AuthState.public:
-        return <PublicApp />;
-      case AuthState.admin:
-        return <AdminApp />;
-      case AuthState.none:
-      default:
-        return <LandingApp />;
-    }
-  }
+  //   // Retrieve users
+  //   getUsers((users) => {
+  //     console.log('Retrieved users:', users);
+  //   });
+  // }, []);
 
-  return conditionalRender();
+  // const { showLoading, hideLoading, showErrorAlert, showAlert, showToast } = useRootStore();
+  // const {
+  //   getLocation,
+  //   startLocTracking,
+  //   stopLocTracking,
+  //   location,
+  //   trackingLocStatus,
+  // } = useLocationStore();
+
+  // const { t } = useTranslation();
+
+  // return (
+  //   <View style={{ padding: 20 }}>
+  //     <LanguageSelector />
+  //     <Text style={{ marginTop: 20 }}>
+  //       {t('welcome', { name: 'John Doe' })}
+  //     </Text>
+  //     <Text>{t('greeting', { name: 'Alice' })}</Text>
+  //     <Text>{t('appNameFull')}</Text>
+  //   </View>
+  // );
+
+  // return (
+  //   <View>
+  //     <Button title="Get Location" onPress={getLocation} />
+  //     <Button title="Start Tracking" onPress={startLocTracking} />
+  //     <Button title="Stop Tracking" onPress={stopLocTracking} />
+  //     <Text>Status: {trackingLocStatus}</Text>
+  //     {location && (
+  //       <Text>
+  //         Location: {location.latitude}, {location.longitude}
+  //       </Text>
+  //     )}
+  //   </View>
+  // );
 
   // const handleShowLoading = () => {
   //   showLoading('Loading data...');
@@ -79,4 +112,18 @@ function Root() {
   //     <Button title="Show Toast" onPress={handleShowToast} />
   //   </View>
   // );
+
+  function conditionalRender() {
+    switch (authState) {
+      case AuthState.public:
+        return <PublicApp />;
+      case AuthState.admin:
+        return <AdminApp />;
+      case AuthState.none:
+      default:
+        return <LandingApp />;
+    }
+  }
+
+  return conditionalRender();
 }

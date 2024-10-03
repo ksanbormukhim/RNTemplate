@@ -11,6 +11,8 @@ type AuthContextType = {
   setUserData: React.Dispatch<React.SetStateAction<UserDataType | undefined>>;
   authState: AuthState;
   setAuthState: React.Dispatch<React.SetStateAction<AuthState>>;
+  login: (user: UserDataType) => void;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -19,6 +21,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataType>();
   const [authState, setAuthState] = useState<AuthState>(AuthState.none);
 
+  const login = (user: UserDataType) => {
+    setUserData(user);
+    setAuthState(user.role === 'admin' ? AuthState.admin : AuthState.public);
+  };
+
+  const logout = () => {
+    setUserData(undefined);
+    setAuthState(AuthState.none);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -26,6 +38,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUserData,
         authState,
         setAuthState,
+        login,
+        logout,
       }}
     >
       {children}

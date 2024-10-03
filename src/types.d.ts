@@ -2,8 +2,8 @@ type UserDataType = {
   userid: string;
   district: string;
   password: string;
-  uid: number;
-  status: boolean;
+  uid: string;
+  status: string;
   role: string;
 };
 
