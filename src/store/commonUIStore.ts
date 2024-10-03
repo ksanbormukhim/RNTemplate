@@ -21,7 +21,7 @@ type RootState = {
   hideAlert: () => void;
 };
 
-export const modalsUIStore = create<RootState>((set) => {
+export const commonUIStore = create<RootState>((set) => {
   let toastTimeout: NodeJS.Timeout | null = null;
 
   return {

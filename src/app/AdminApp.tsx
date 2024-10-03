@@ -1,18 +1,14 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { Button, Text, View } from 'react-native';
-import { authStore } from '../store/authStore';
+import AdminLanding from '../screens/AdminLanding';
 
 export default function AdminApp() {
-  const { logout } = authStore();
+  const Tab = createBottomTabNavigator();
+
   return (
-    <View>
-      <Text>AdminApp</Text>
-      <Button
-        title="Log Out"
-        onPress={() => {
-          logout();
-        }}
-      />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Admin" component={AdminLanding} />
+      {/* Add more tabs for AdminApp as needed */}
+    </Tab.Navigator>
   );
 }

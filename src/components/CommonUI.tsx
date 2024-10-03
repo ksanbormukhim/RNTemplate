@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { modalsUIStore } from '../store/modalsUIStore';
+import { commonUIStore } from '../store/commonUIStore';
 
-export default function Modals() {
+export default function CommonUI() {
   const {
     toast,
     loading,
@@ -19,11 +19,11 @@ export default function Modals() {
     hideAlert,
     hideLoading,
     hideToast,
-  } = modalsUIStore();
+  } = commonUIStore();
 
   return (
     <>
-      {/* Error Modal */}
+      {/* Error Alert */}
       <Modal animationType="slide" transparent visible={!!errorAlert}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -53,7 +53,7 @@ export default function Modals() {
         </View>
       </Modal>
 
-      {/* Alert Modal */}
+      {/* Alert  */}
       <Modal animationType="slide" transparent visible={!!alert}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -90,7 +90,7 @@ export default function Modals() {
         </View>
       </Modal>
 
-      {/* Loading Modal */}
+      {/* Loading  */}
       <Modal animationType="slide" transparent visible={!!loading}>
         <View style={styles.centeredView}>
           <View style={styles.loadingView}>
@@ -102,7 +102,7 @@ export default function Modals() {
         </View>
       </Modal>
 
-      {/* Toast Modal */}
+      {/* Toast  */}
       <Modal animationType="slide" transparent visible={!!toast}>
         <View style={styles.bottomedView}>
           <View style={styles.toastView}>

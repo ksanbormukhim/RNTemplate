@@ -1,12 +1,14 @@
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import { Text, View } from 'react-native';
-import LoginComponent from '../components/LoginComponent';
+import Landing from '../screens/Landing';
 
 export default function LandingApp() {
+  const Drawer = createDrawerNavigator();
+
   return (
-    <View>
-      <Text>LandingApp</Text>
-      <LoginComponent />
-    </View>
+    <Drawer.Navigator>
+      <Drawer.Screen name="Landing" component={Landing} />
+      {/* Add more screens for LandingApp as needed */}
+    </Drawer.Navigator>
   );
 }

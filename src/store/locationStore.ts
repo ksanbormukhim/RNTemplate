@@ -1,7 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { create } from 'zustand';
-import { modalsUIStore } from './modalsUIStore';
+import { commonUIStore } from './commonUIStore';
 
 type LocationDataType = {
   latitude: number;
@@ -48,7 +48,7 @@ export const locationStore = create<LocationState>((set) => {
         .requestLocationPermission();
       if (!hasPermission) {
         set({ isGettingLocation: false });
-        const { showErrorAlert } = modalsUIStore.getState();
+        const { showErrorAlert } = commonUIStore.getState();
         showErrorAlert({ message: 'Error getting Location' });
         return;
       }
@@ -62,7 +62,7 @@ export const locationStore = create<LocationState>((set) => {
         },
         (error) => {
           set({ isGettingLocation: false });
-          const { showErrorAlert } = modalsUIStore.getState();
+          const { showErrorAlert } = commonUIStore.getState();
           showErrorAlert({
             message: 'Error getting Location\n' + error.message,
           });
@@ -78,7 +78,7 @@ export const locationStore = create<LocationState>((set) => {
         .requestLocationPermission();
       if (!hasPermission) {
         set({ trackingLocStatus: 'stop' });
-        const { showErrorAlert } = modalsUIStore.getState();
+        const { showErrorAlert } = commonUIStore.getState();
         showErrorAlert({
           message: 'Error getting Location\nPermission Denied',
         });
@@ -91,7 +91,7 @@ export const locationStore = create<LocationState>((set) => {
         },
         (error) => {
           set({ trackingLocStatus: 'error_getting_loc' });
-          const { showErrorAlert } = modalsUIStore.getState();
+          const { showErrorAlert } = commonUIStore.getState();
           showErrorAlert({
             message: 'Error getting Location\n' + error.message,
           });
@@ -105,7 +105,7 @@ export const locationStore = create<LocationState>((set) => {
         },
         (error) => {
           set({ trackingLocStatus: 'error_tracking_loc' });
-          const { showErrorAlert } = modalsUIStore.getState();
+          const { showErrorAlert } = commonUIStore.getState();
           showErrorAlert({
             message: 'Error Tracking Location\n' + error.message,
           });

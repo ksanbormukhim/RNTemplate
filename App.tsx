@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { SafeAreaView } from 'react-native';
@@ -5,7 +6,7 @@ import SplashScreen from 'react-native-splash-screen';
 import AdminApp from './src/app/AdminApp';
 import LandingApp from './src/app/LandingApp';
 import PublicApp from './src/app/PublicApp';
-import Modals from './src/components/Modals';
+import CommonUI from './src/components/CommonUI';
 import { AuthState, authStore } from './src/store/authStore';
 import i18n from './src/utils/i18n';
 
@@ -19,7 +20,7 @@ function App() {
       {/* <AuthProvider> */}
       <SafeAreaView style={{ flex: 1 }}>
         <Root />
-        <Modals />
+        <CommonUI />
       </SafeAreaView>
       {/* </AuthProvider> */}
     </I18nextProvider>
@@ -43,5 +44,5 @@ function Root() {
     }
   }
 
-  return conditionalRender();
+  return <NavigationContainer>{conditionalRender()}</NavigationContainer>;
 }

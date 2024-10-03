@@ -1,19 +1,14 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Button, Text, View } from 'react-native';
-import { authStore } from '../store/authStore';
+import PublicLanding from '../screens/PublicLanding';
 
 export default function PublicApp() {
-  const { logout } = authStore();
+  const Stack = createNativeStackNavigator();
 
   return (
-    <View>
-      <Text>PublicApp</Text>
-      <Button
-        title="Log Out"
-        onPress={() => {
-          logout();
-        }}
-      />
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Public" component={PublicLanding} />
+      {/* Add more screens for PublicApp as needed */}
+    </Stack.Navigator>
   );
 }
