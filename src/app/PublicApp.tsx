@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useAuthStore } from '../store/useAuthStore';
 
 export default function PublicApp() {
-  const { logout } = useAuth();
+  const { logout } = useAuthStore();
 
   return (
     <View>

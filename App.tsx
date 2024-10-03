@@ -6,7 +6,7 @@ import AdminApp from './src/app/AdminApp';
 import LandingApp from './src/app/LandingApp';
 import PublicApp from './src/app/PublicApp';
 import Modals from './src/components/Modals';
-import { AuthProvider, AuthState, useAuth } from './src/context/AuthContext';
+import { AuthState, useAuthStore } from './src/store/useAuthStore';
 import i18n from './src/utils/i18n';
 
 function App() {
@@ -16,19 +16,20 @@ function App() {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <AuthProvider>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Root />
-          <Modals />
-        </SafeAreaView>
-      </AuthProvider>
+      {/* <AuthProvider> */}
+      <SafeAreaView style={{ flex: 1 }}>
+        <Root />
+        <Modals />
+      </SafeAreaView>
+      {/* </AuthProvider> */}
     </I18nextProvider>
   );
 }
 export default App;
 
 function Root() {
-  const { authState } = useAuth();
+  // const { authState } = useAuth();
+  const { authState } = useAuthStore();
 
   function conditionalRender() {
     switch (authState) {

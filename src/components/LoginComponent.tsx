@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, TextInput, View } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useAuthStore } from '../store/useAuthStore';
 
 const LoginComponent = () => {
-  const { login } = useAuth();
+  const { login } = useAuthStore();
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,7 +15,7 @@ const LoginComponent = () => {
       district: 'District',
       status: 'active',
       password: 'user@123',
-      role: 'admin', // Set role based on your authentication logic
+      role: 'user', // Set role based on your authentication logic
     };
 
     login(user); // Call the login function from context
