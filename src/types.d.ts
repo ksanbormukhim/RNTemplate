@@ -16,3 +16,28 @@ type LocationDataType = {
   heading: number | null;
   speed: number | null;
 };
+
+type DrawerScreenItemType =
+  | {
+      name: string;
+      icon: string;
+      component: string;
+      initialChildComponent?: string;
+    }
+  | {
+      name: string;
+      icon: string;
+      children: DrawerScreenItemType[];
+    };
+
+type MyProp = {
+  labelStyle?: StyleProp<TextStyle>;
+  allowFontScaling?: boolean;
+  activeTintColor?: string;
+  inactiveTintColor?: any;
+  activeBackgroundColor?: any;
+  inactiveBackgroundColor?: string;
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
+  accessibilityLabel?: string;
+};

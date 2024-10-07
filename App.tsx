@@ -17,19 +17,16 @@ function App() {
 
   return (
     <I18nextProvider i18n={i18n}>
-      {/* <AuthProvider> */}
       <SafeAreaView style={{ flex: 1 }}>
         <Root />
         <CommonUI />
       </SafeAreaView>
-      {/* </AuthProvider> */}
     </I18nextProvider>
   );
 }
 export default App;
 
 function Root() {
-  // const { authState } = useAuth();
   const { authState } = authStore();
 
   function conditionalRender() {

@@ -19,7 +19,9 @@ export const insertUser = (name: string, age: number) => {
 };
 
 // Retrieve users
-export const getUsers = (callback: (users: any[]) => void) => {
+export const getUsers = (
+  callback: (users: { id: number; name: string; age: number }[]) => void
+) => {
   db.transaction((tx) => {
     tx.executeSql(
       'SELECT * FROM Users',
