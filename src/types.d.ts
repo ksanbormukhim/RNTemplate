@@ -17,20 +17,17 @@ type LocationDataType = {
   speed: number | null;
 };
 
-type DrawerScreenItemType =
+type DrawerScreenItemType = { name: string; icon: string; hide?: boolean } & (
   | {
-      name: string;
-      icon: string;
       component: string;
       initialChildComponent?: string;
     }
   | {
-      name: string;
-      icon: string;
       children: DrawerScreenItemType[];
-    };
+    }
+);
 
-type MyProp = {
+type MyDrawerProp = {
   labelStyle?: StyleProp<TextStyle>;
   allowFontScaling?: boolean;
   activeTintColor?: string;
@@ -40,4 +37,11 @@ type MyProp = {
   style?: StyleProp<ViewStyle>;
   testID?: string;
   accessibilityLabel?: string;
+};
+
+type TabScreenItemType = {
+  name: string;
+  icon: string;
+  component: string;
+  hide?: boolean;
 };

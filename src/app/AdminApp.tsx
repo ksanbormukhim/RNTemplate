@@ -8,7 +8,9 @@ export default function AdminApp() {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator tabBar={(p) => <CustomTabBar {...p} />}>
+    <Tab.Navigator
+      tabBar={(props) => <CustomTabBar props={props} tabMap="adminTab" />}
+    >
       <Tab.Screen name="Admin" component={AdminLanding} />
       <Tab.Screen name="Screen1" component={Screen1} />
       <Tab.Screen name="Screen2" component={Screen2} />

@@ -20,14 +20,14 @@
 // const { t } = useTranslation();
 
 // return (
-//   <View style={{ padding: 20 }}>
-//     <LanguageSelector />
-//     <Text style={{ marginTop: 20 }}>
-//       {t('welcome', { name: 'John Doe' })}
-//     </Text>
-//     <Text>{t('greeting', { name: 'Alice' })}</Text>
-//     <Text>{t('appNameFull')}</Text>
-//   </View>
+  <View style={{ padding: 20 }}>
+    <LanguageSelector />
+    <Text style={{ marginTop: 20 }}>
+      {t('welcome', { name: 'John Doe' })}
+    </Text>
+    <Text>{t('greeting', { name: 'Alice' })}</Text>
+    <Text>{t('appNameFull')}</Text>
+  </View>
 // );
 
 // return (
