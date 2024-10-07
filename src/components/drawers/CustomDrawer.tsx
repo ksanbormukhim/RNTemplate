@@ -4,7 +4,7 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import React from 'react';
-import { drawerConfig, DrawerConfigKey } from '../../config/drawer';
+import { drawerConfig, DrawerConfigKey } from '../../config/drawers';
 import MyDrawerItemList from './MyDrawerItemList';
 
 interface CustomDrawerProps {

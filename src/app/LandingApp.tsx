@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import { Text, View } from 'react-native';
-import CustomDrawer from '../components/drawer/CustomDrawer';
+import CustomDrawer from '../components/drawers/CustomDrawer';
 import Landing from '../screens/Landing';
 
 export default function LandingApp() {
