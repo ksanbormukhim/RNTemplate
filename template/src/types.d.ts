@@ -45,3 +45,5 @@ type TabScreenItemType = {
   component: string;
   hide?: boolean;
 };
+
+type a = Omit<TabScreenItemType, 'name' | 'hide' | 'component'>;

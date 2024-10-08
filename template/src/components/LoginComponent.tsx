@@ -15,7 +15,7 @@ const LoginComponent = () => {
       district: 'District',
       status: 'active',
       password: 'user@123',
-      role: 'admin', // Set role based on your authentication logic
+      role: 'user', // Set role based on your authentication logic
     };
 
     login(user); // Call the login function from context
