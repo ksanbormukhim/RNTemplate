@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, Button, Text, View } from 'react-native';
+import { useFetch } from '../hooks/useFetch';
 import { authStore } from '../store/authStore';
-import { useFetch } from '../utils/useFetch';
 
 export default function PublicLanding() {
   const { logout } = authStore();
