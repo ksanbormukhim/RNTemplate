@@ -1,4 +1,5 @@
 {
   "name": "TAD",
-  "displayName": "TAD"
+  "displayName": "TAD",
+  "apiBaseUrl": "https://jsonplaceholder.org"
 }

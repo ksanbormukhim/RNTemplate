@@ -1,8 +1,7 @@
-// useFetch.ts
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 // Custom hook for fetching data
-const useFetch = <T = unknown>(
+const useFetch = <T>(
   url: string | URL | globalThis.Request,
   init?: Omit<RequestInit, 'signal'>,
   retryCount = 3, // Default number of retries
@@ -36,7 +35,7 @@ const useFetch = <T = unknown>(
         }
 
         const contentType = response.headers.get('Content-Type');
-        let result: T | Record<string, unknown> | null = null;
+        let result: T | Record<string, any> | null = null;
 
         // Handle JSON response
         if (contentType && contentType.includes('application/json')) {
@@ -44,7 +43,7 @@ const useFetch = <T = unknown>(
         } else {
           // Handle non-JSON response
           const textResponse = await response.text();
-          result = textResponse as unknown as T;
+          result = textResponse as any as T;
         }
 
         setData(result);

@@ -1,13 +1,10 @@
-// apiService.ts
-const apiBaseUrl = 'https://your-api-url.com'; // Replace with your actual API base URL
-
 // Helper function to handle requests
 const apiRequest = async <T>(
   url: string,
   options: RequestInit
 ): Promise<[number, T | any]> => {
   try {
-    const response = await fetch(`${apiBaseUrl}${url}`, options);
+    const response = await fetch(url, options);
 
     const contentType = response.headers.get('Content-Type');
     let result: any;
