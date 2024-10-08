@@ -20,7 +20,7 @@ export default function PublicLanding() {
         }}
       />
       <AaA key={1} />
-      {/* <BaA /> */}
+      <BaA />
     </View>
   );
 }

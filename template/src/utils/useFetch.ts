@@ -1,68 +1,90 @@
-import { useCallback, useEffect, useState } from 'react';
+// useFetch.ts
+import { useCallback, useEffect, useRef, useState } from 'react';
 
+// Custom hook for fetching data
 const useFetch = <T = unknown>(
   url: string | URL | globalThis.Request,
   init?: Omit<RequestInit, 'signal'>,
+  retryCount = 3, // Default number of retries
+  timeoutDuration = 5000, // Default timeout duration
   deps: any[] = []
 ): [T | null, boolean, string | null, () => void, () => void] => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [abortController] = useState(new AbortController());
+  const abortControllerRef = useRef<AbortController | null>(null); // Use useRef to store AbortController
+
   const fetchData = useCallback(async () => {
+    abortControllerRef.current = new AbortController(); // Create a new AbortController for this request
     setLoading(true);
     setError(null);
 
-    try {
-      const response = await fetch(url, {
-        ...init,
-        signal: abortController.signal,
-      });
+    const timeoutId = setTimeout(
+      () => abortControllerRef.current?.abort(), // Abort if timeout occurs
+      timeoutDuration
+    );
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+    const fetchWithRetry = async (retries: number): Promise<void> => {
+      try {
+        const response = await fetch(url, {
+          ...init,
+          signal: abortControllerRef.current?.signal, // Use the signal from the ref
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get('Content-Type');
+        let result: T | Record<string, unknown> | null = null;
+
+        // Handle JSON response
+        if (contentType && contentType.includes('application/json')) {
+          result = (await response.json()) as T;
+        } else {
+          // Handle non-JSON response
+          const textResponse = await response.text();
+          result = textResponse as unknown as T;
+        }
+
+        setData(result);
+      } catch (err: any) {
+        if (err.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else if (retries > 0) {
+          console.log(`Retrying... Attempts left: ${retries}`);
+          await fetchWithRetry(retries - 1); // Retry the fetch
+        } else {
+          setError(err.message);
+        }
+      } finally {
+        clearTimeout(timeoutId); // Clear the timeout
+        setLoading(false); // Set loading to false
       }
+    };
 
-      const contentType = response.headers.get('Content-Type');
-      let result: T | Record<string, unknown> | null = null;
+    await fetchWithRetry(retryCount); // Call the retry function
 
-      if (contentType && contentType.includes('application/json')) {
-        result = (await response.json()) as T;
-      } else {
-        const textResponse = await response.text();
-        result = textResponse as unknown as T;
-      }
-
-      setData(result);
-    } catch (err: any) {
-      if (err.name === 'AbortError') {
-        console.log('Fetch aborted'); // Optional: Log fetch abort
-      } else {
-        setError(err.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [...deps, url, init, abortController]);
+    return () => {
+      abortControllerRef.current?.abort(); // Cleanup abort controller on unmount
+    };
+  }, [url, init, retryCount, timeoutDuration, ...deps]);
 
   const abort = useCallback(() => {
-    abortController.abort();
-  }, [abortController]);
+    abortControllerRef.current?.abort(); // Abort fetch if needed
+  }, []);
 
   useEffect(() => {
     if (url) {
-      fetchData();
+      fetchData(); // Fetch data
     }
 
     return () => {
-      abort();
-      setData(null);
-      setLoading(false);
-      setError(null);
+      abort(); // Cleanup on unmount
     };
-  }, [url, fetchData, abort]);
+  }, [url, fetchData, ...deps]);
 
-  return [data, loading, error, fetchData, abort];
+  return [data, loading, error, fetchData, abort]; // Return fetch function for manual refresh
 };
 
 export { useFetch };
