@@ -7,10 +7,10 @@ const useFetch = <T>(
   retryCount = 3, // Default number of retries
   timeoutDuration = 5000, // Default timeout duration
   deps: any[] = []
-): [T | null, boolean, string | null, () => void, () => void] => {
+): [T | null, boolean, any | null, () => void, () => void] => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<any>(null);
   const abortControllerRef = useRef<AbortController | null>(null); // Use useRef to store AbortController
 
   const fetchData = useCallback(async () => {
@@ -48,13 +48,11 @@ const useFetch = <T>(
 
         setData(result);
       } catch (err: any) {
-        if (err.name === 'AbortError') {
-          console.log('Fetch aborted');
-        } else if (retries > 0) {
+        if (retries > 0) {
           console.log(`Retrying... Attempts left: ${retries}`);
           await fetchWithRetry(retries - 1); // Retry the fetch
         } else {
-          setError(err.message);
+          setError(err);
         }
       } finally {
         clearTimeout(timeoutId); // Clear the timeout
