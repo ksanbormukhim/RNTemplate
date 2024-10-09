@@ -1,25 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-// Custom hook for fetching data
 const useFetch = <T>(
   url: string | URL | globalThis.Request,
   init?: Omit<RequestInit, 'signal'>,
-  retryCount = 3, // Default number of retries
-  timeoutDuration = 5000, // Default timeout duration
+  retryCount = 1,
+  timeoutDuration = 5000,
   deps: any[] = []
 ): [T | null, boolean, any | null, () => void, () => void] => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
-  const abortControllerRef = useRef<AbortController | null>(null); // Use useRef to store AbortController
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const fetchData = useCallback(async () => {
-    abortControllerRef.current = new AbortController(); // Create a new AbortController for this request
+    abortControllerRef.current = new AbortController();
     setLoading(true);
     setError(null);
 
     const timeoutId = setTimeout(
-      () => abortControllerRef.current?.abort(), // Abort if timeout occurs
+      () => abortControllerRef.current?.abort(),
       timeoutDuration
     );
 
@@ -27,7 +26,7 @@ const useFetch = <T>(
       try {
         const response = await fetch(url, {
           ...init,
-          signal: abortControllerRef.current?.signal, // Use the signal from the ref
+          signal: abortControllerRef.current?.signal,
         });
 
         if (!response.ok) {
@@ -50,38 +49,37 @@ const useFetch = <T>(
       } catch (err: any) {
         if (retries > 0) {
           console.log(`Retrying... Attempts left: ${retries}`);
-          await fetchWithRetry(retries - 1); // Retry the fetch
+          await fetchWithRetry(retries - 1);
         } else {
           setError(err);
         }
       } finally {
-        clearTimeout(timeoutId); // Clear the timeout
-        setLoading(false); // Set loading to false
+        clearTimeout(timeoutId);
+        setLoading(false);
       }
     };
 
-    await fetchWithRetry(retryCount); // Call the retry function
-
+    await fetchWithRetry(retryCount);
     return () => {
-      abortControllerRef.current?.abort(); // Cleanup abort controller on unmount
+      abortControllerRef.current?.abort();
     };
   }, [url, init, retryCount, timeoutDuration, ...deps]);
 
   const abort = useCallback(() => {
-    abortControllerRef.current?.abort(); // Abort fetch if needed
+    abortControllerRef.current?.abort();
   }, []);
 
   useEffect(() => {
     if (url) {
-      fetchData(); // Fetch data
+      fetchData();
     }
 
     return () => {
-      abort(); // Cleanup on unmount
+      abort();
     };
   }, [url, fetchData, ...deps]);
 
-  return [data, loading, error, fetchData, abort]; // Return fetch function for manual refresh
+  return [data, loading, error, fetchData, abort];
 };
 
 export { useFetch };

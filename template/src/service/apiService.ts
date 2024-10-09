@@ -1,4 +1,3 @@
-// Helper function to handle requests
 const apiRequest = async <T>(
   url: string,
   options: RequestInit
@@ -19,37 +18,43 @@ const apiRequest = async <T>(
       result = await response.text();
     }
 
-    return [response.status, result]; // Return status and result as an array
+    return [response.status, result];
   } catch (error: any) {
-    return [500, error]; // Return error status and message
+    return [500, error];
   }
 };
 
-// Service functions for various API requests
 const apiService = {
   // GET request
-  get: async <T>(url: string): Promise<[number, T | any]> => {
-    return await apiRequest(url, { method: 'GET' });
+  get: async <T>(
+    url: string,
+    init?: Omit<RequestInit, 'method'>
+  ): Promise<[number, T | any]> => {
+    return await apiRequest(url, { method: 'GET', ...init });
   },
 
   //   POST request (FormData)
   post: async <T>(
     url: string,
-    formData: FormData
+    formData: FormData,
+    init?: Omit<RequestInit, 'method' | 'headers' | 'body'>
   ): Promise<[number, T | any]> => {
-    const options: RequestInit = {
+    return await apiRequest(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: formData,
-    };
-    return await apiRequest(url, options);
+      ...init,
+    });
   },
 
   // DELETE request
-  delete: async <T>(url: string): Promise<[number, T | any]> => {
-    return await apiRequest(url, { method: 'DELETE' });
+  delete: async <T>(
+    url: string,
+    init?: Omit<RequestInit, 'method'>
+  ): Promise<[number, T | any]> => {
+    return await apiRequest(url, { method: 'DELETE', ...init });
   },
 
   // PUT request (optional)

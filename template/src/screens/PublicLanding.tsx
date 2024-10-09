@@ -57,7 +57,7 @@ export default function PublicLanding() {
       />
 
       <FetchComponent
-        fetchParam={{ url: 'https://jsonplaceholder.typicode.com/posts/999' }}
+        fetchParam={{ url: 'https://jsonplaceholder.org/users' }}
         render={(data) => {
           if (data) console.log('users', data);
           return <Text>{JSON.stringify(data)}</Text>;

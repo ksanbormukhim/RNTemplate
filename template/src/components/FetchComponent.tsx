@@ -3,7 +3,6 @@ import { useFetch } from '../hooks/useFetch';
 import ErrorContainer from './ErrorContainer';
 import SkeletonLoader from './SkeletonLoader';
 
-// Define the types for the props
 type FetchComponentProps<T> = {
   fetchParam: {
     url: string | URL | globalThis.Request;
@@ -12,11 +11,11 @@ type FetchComponentProps<T> = {
     timeoutDuration?: number;
     deps?: any[];
   };
-  render: (data: T) => JSX.Element; // Render component for displaying the data
+  render: (data: T) => JSX.Element;
   loaderHeight?: number;
   loaderBorderRadius?: number;
-  LoadingComponent?: React.FC; // Optional custom loading component
-  ErrorComponent?: React.FC<{ error: any; onRetry: () => void }>; // Optional custom error component
+  LoadingComponent?: React.FC;
+  ErrorComponent?: React.FC<{ error: any; onRetry: () => void }>;
 };
 
 const FetchComponent = <T,>({
@@ -39,9 +38,9 @@ const FetchComponent = <T,>({
   const [data, loading, error, refetch] = useFetch<T>(
     fetchParam.url,
     fetchParam.init,
-    fetchParam.retryCount ?? 3,
-    fetchParam.timeoutDuration ?? 5000,
-    fetchParam.deps ?? []
+    fetchParam.retryCount,
+    fetchParam.timeoutDuration,
+    fetchParam.deps
   );
 
   if (loading) {
