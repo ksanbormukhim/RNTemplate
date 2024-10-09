@@ -66,7 +66,7 @@ const useFetch = <T>(
     return () => {
       abortControllerRef.current?.abort();
     };
-  }, [url, init, retryCount, timeoutDuration, ...deps]);
+  }, [url,  retryCount, timeoutDuration, ...deps]);
 
   const abort = useCallback(() => {
     abortControllerRef.current?.abort();

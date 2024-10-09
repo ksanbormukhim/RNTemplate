@@ -1,17 +1,17 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
-import FetchComponent from '../components/FetchComponent';
+import { ActivityIndicator, Button, Text, View } from 'react-native';
 import { authStore } from '../store/authStore';
+import { useFetch } from '../hooks/useFetch';
 
 export default function PublicLanding() {
   const { logout } = authStore();
 
-  // const [data2, loading2, error2] = useFetch<any>(
-  //   'https://jsonplaceholder.org/comments'
-  // );
+  const [data2, loading2, error2] = useFetch<any>(
+    'https://jsonplaceholder.org/comments'
+  );
 
-  // if (data2)
-  //   console.log('comments', data2, `loading: ${loading2}`, `error: ${error2}`);
+  if (data2)
+    console.log('comments', data2, `loading: ${loading2}`, `error: ${error2}`);
 
   // const [data, loading, error, refresh, abort] = useFetch(
   //   'https://jsonplaceholder.typicode.com/posts/999'
@@ -35,7 +35,7 @@ export default function PublicLanding() {
           logout();
         }}
       />
-      {/* {loading2 && (
+      {loading2 && (
         <>
           <ActivityIndicator size="large" />
           <Text>Loading 2</Text>
@@ -46,9 +46,9 @@ export default function PublicLanding() {
         <>
           <Text>Error 2</Text>
         </>
-      )} */}
+      )}
 
-      <FetchComponent
+      {/* <FetchComponent
         fetchParam={{ url: 'https://jsonplaceholder.typicode.com/posts/999' }}
         render={(data) => {
           if (data) console.log('users', data);
@@ -62,7 +62,7 @@ export default function PublicLanding() {
           if (data) console.log('users', data);
           return <Text>{JSON.stringify(data)}</Text>;
         }}
-      />
+      /> */}
 
       {/* {loading && (
         <>
