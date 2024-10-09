@@ -50,6 +50,9 @@ const useFetch = <T>(
         if (retries > 0) {
           console.log(`Retrying... Attempts left: ${retries}`);
           await fetchWithRetry(retries - 1);
+        } else if (err.name === 'AbortError') {
+          err.message = 'Operation Aborted because of Timeout';
+          setError(err);
         } else {
           setError(err);
         }
