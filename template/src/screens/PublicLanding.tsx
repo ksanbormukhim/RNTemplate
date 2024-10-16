@@ -1,33 +1,32 @@
 import React from 'react';
-import { ActivityIndicator, Button, Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
+import FetchComponent from '../components/FetchComponent';
 import { authStore } from '../store/authStore';
-import { useFetch } from '../hooks/useFetch';
 
 export default function PublicLanding() {
   const { logout } = authStore();
 
-  const [data2, loading2, error2] = useFetch<any>(
-    'https://jsonplaceholder.org/comments'
-  );
+  // const [data, loading, error] = useFetch<any>([
+  //   {
+  //     url: 'https://jsonplaceholder.org/comments',
+  //     init: {},
+  //   },
+  //   {
+  //     url: 'https://jsonplaceholder.org/users',
+  //     init: {},
+  //   },
+  //   {
+  //     url: 'https://jsonplaceholder.typicode.com/posts/999',
+  //     init: {},
+  //   },
+  // ]);
 
-  if (data2)
-    console.log('comments', data2, `loading: ${loading2}`, `error: ${error2}`);
-
-  // const [data, loading, error, refresh, abort] = useFetch(
-  //   'https://jsonplaceholder.typicode.com/posts/999'
-  // );
-
-  // if (data)
-  //   console.log('users', data, `loading: ${loading}`, `error: ${error}`);
+  // console.log(loading, error, data);
+  // const [comments, user] = data;
 
   return (
     <View>
       <Text>PublicApp</Text>
-
-      {/* <DefaultLoadingComponent /> */}
-      {/* <SkeletonLoader height={200} borderRadius={10} />
-      <ErrorContainer /> */}
-      {/* <DefaultErrorComponent error={{ message: 'ss' }} /> */}
 
       <Button
         title="Log Out"
@@ -35,72 +34,47 @@ export default function PublicLanding() {
           logout();
         }}
       />
-      {loading2 && (
+
+      {/* {loading && (
         <>
-          <ActivityIndicator size="large" />
-          <Text>Loading 2</Text>
+          <SkeletonLoader visible={loading} message={`${loading}`} />
+          <Text>{`${loading}`}</Text>
         </>
       )}
 
-      {error2 && (
+      {error && (
         <>
-          <Text>Error 2</Text>
+          <ErrorContainer message={error.message} />
         </>
       )}
+
+      {data.length > 0 && (
+        <>
+          <Text>{JSON.stringify(data)}</Text>
+        </>
+      )} */}
 
       {/* <FetchComponent
-        fetchParam={{ url: 'https://jsonplaceholder.typicode.com/posts/999' }}
-        render={(data) => {
-          if (data) console.log('users', data);
-          return <Text>{JSON.stringify(data)}</Text>;
-        }}
-      />
-
-      <FetchComponent
-        fetchParam={{ url: 'https://jsonplaceholder.org/users' }}
+        fetchParam={{ url: 'url' }}
         render={(data) => {
           if (data) console.log('users', data);
           return <Text>{JSON.stringify(data)}</Text>;
         }}
       /> */}
 
-      {/* {loading && (
-        <>
-          <ActivityIndicator size="large" />
-          <Text>Loading 1</Text>
-        </>
-      )}
-
-      {error && (
-        <>
-          <Text>Error 1 {error.message}</Text>
-        </>
-      )} */}
-
-      {/* <AaA key={1} /> */}
-      {/* <BaA /> */}
-    </View>
-  );
-}
-
-function AaA() {
-  return (
-    <View>
-      <Text>PublicApp</Text>
-
-      {/* {data2 && <>{console.log('comments', data2)}</>} */}
-      <Text>AaA</Text>
-    </View>
-  );
-}
-
-function BaA() {
-  return (
-    <View>
-      <Text>PublicApp</Text>
-
-      {/* {data && <>{console.log('comments', data)}</>} */}
-      <Text>BaA</Text>
+      {/* <SkeletonLoader visible /> */}
+      {/* <ErrorContainer /> */}
+      <FetchComponent
+        requests={[
+          { url: 'https://jsonplaceholder.org/users' },
+          { url: 'https://jsonplaceholder.org/comments' },
+          // { url: 'https://jsonplaceholder.typicode.com/posts/999' },
+        ]}
+        render={(data) => {
+          if (data) console.log('users', data);
+          return <Text>{JSON.stringify(data)}</Text>;
+        }}
+      />
     </View>
   );
 }

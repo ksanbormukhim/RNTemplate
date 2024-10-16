@@ -1,24 +1,31 @@
-import React from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Animated, Text, View } from 'react-native';
 
-type SkeletonLoaderProps = {
+export default function SkeletonLoader({
+  width = '96%',
+  height = 50,
+  borderRadius = 8,
+  style = {},
+  animateStyle = {},
+  textStyle = {},
+  visible,
+  message,
+}: {
   width?: number | string;
   height?: number | string;
   borderRadius?: number;
   style?: object;
-};
+  animateStyle?: object;
+  textStyle?: object;
+  visible?: boolean;
+  message?: string;
+}) {
+  if (!visible) return null;
 
-const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
-  width = '96%',
-  height = 100,
-  borderRadius = 8,
-  style = {},
-}) => {
-  const shimmerValue = new Animated.Value(0);
+  const shimmerValue = useRef(new Animated.Value(0)).current;
 
-  // Shimmer animation effect
-  React.useEffect(() => {
-    Animated.loop(
+  useEffect(() => {
+    const shimmerAnimation = Animated.loop(
       Animated.sequence([
         Animated.timing(shimmerValue, {
           toValue: 1,
@@ -31,7 +38,11 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
           useNativeDriver: true,
         }),
       ])
-    ).start();
+    );
+
+    shimmerAnimation.start();
+
+    return () => shimmerAnimation.stop();
   }, [shimmerValue]);
 
   const shimmerInterpolation = shimmerValue.interpolate({
@@ -40,27 +51,34 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
   });
 
   return (
-    <View style={[styles.container, { width, height, borderRadius }, style]}>
+    <View
+      style={[
+        {
+          overflow: 'hidden',
+          margin: '2%',
+        },
+        { width, height, borderRadius },
+        style,
+      ]}
+    >
       <Animated.View
         style={[
-          styles.shimmer,
+          {
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderColor: '#555',
+            borderWidth: 1,
+          },
           { backgroundColor: shimmerInterpolation, borderRadius },
+          animateStyle,
         ]}
-      />
+      >
+        {message && (
+          <Text style={[{ color: '#fff' }, textStyle]}>{message}</Text>
+        )}
+      </Animated.View>
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    overflow: 'hidden',
-    backgroundColor: '#555',
-    margin: '2%',
-  },
-  shimmer: {
-    width: '100%',
-    height: '100%',
-  },
-});
-
-export default SkeletonLoader;
+}

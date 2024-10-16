@@ -1,33 +1,44 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-type ErrorContainerProps = {
-  width?: number | string;
-  height?: number | string;
-  borderRadius?: number;
-  backgroundColor?: string;
-  message?: string;
-  textColor?: string;
-  style?: object;
-  onRetry?: () => void;
-};
-
-const ErrorContainer: React.FC<ErrorContainerProps> = ({
+export default function ErrorContainer({
   width = '96%',
   height = 50,
   borderRadius = 8,
   backgroundColor = '#FFCDD2',
   message = 'An error occurred',
   textColor = '#D32F2F',
+  borderColor = '#D32F2F',
   style = {},
   onRetry,
-}) => {
+}: {
+  width?: number | string;
+  height?: number | string;
+  borderRadius?: number;
+  backgroundColor?: string;
+  message?: string;
+  textColor?: string;
+  borderColor?: string;
+  style?: object;
+  onRetry?: () => void;
+}) {
   return (
     <View
       style={[
-        styles.container,
-        { width, height, borderRadius, backgroundColor },
+        {
+          alignItems: 'flex-end',
+          padding: 10,
+          margin: '2%',
+          borderWidth: 1,
+        },
+        {
+          width,
+          height,
+          borderRadius,
+          backgroundColor,
+          borderColor,
+        },
         style,
       ]}
     >
@@ -47,22 +58,18 @@ const ErrorContainer: React.FC<ErrorContainerProps> = ({
           alignItems: 'center',
         }}
       >
-        <Text style={[styles.errorText, { color: textColor }]}>{message}</Text>
+        <Text
+          style={[
+            {
+              fontSize: 16,
+              fontWeight: '600',
+            },
+            { color: textColor },
+          ]}
+        >
+          {message}
+        </Text>
       </View>
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'flex-end',
-    padding: 10,
-    margin: '2%',
-  },
-  errorText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
-
-export default ErrorContainer;
+}
