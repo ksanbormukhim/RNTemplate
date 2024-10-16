@@ -1,4 +1,4 @@
-# React Native Template - RNTemplate
+# React Native Template - RNTemplate [For NESAC RN app]
 
 A custom React Native template designed to streamline the process of setting up a new React Native project with your own configurations and preferences. This template can be used with the `@react-native-community/cli` to quickly generate a new project.
 
