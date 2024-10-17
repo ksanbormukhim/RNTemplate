@@ -11,8 +11,8 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TabConfigKey, tabConfig } from '../../config/tabs';
 import useIsKeyboardShown from '../../hooks/useIsKeyboardShown';
+import { TabConfigKey, tabConfig } from '../../navigation/config/tabs';
 
 export default function CustomTabBar({
   props,

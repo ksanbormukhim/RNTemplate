@@ -4,6 +4,11 @@ import { initReactI18next } from 'react-i18next';
 import as from '../translations/as.json';
 import en from '../translations/en.json';
 
+const languageMap = {
+  en: 'English',
+  as: 'Assamese',
+};
+
 const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true,
@@ -39,5 +44,7 @@ i18n
       useSuspense: false,
     },
   });
+
+i18n.languageMap = languageMap;
 
 export default i18n;

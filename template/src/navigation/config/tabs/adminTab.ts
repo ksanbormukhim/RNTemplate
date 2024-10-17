@@ -1,3 +1,5 @@
+import { TabScreenItemType } from '../../../types';
+
 const adminTab: TabScreenItemType[] = [
   {
     name: 'Admin',

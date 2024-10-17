@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextInput, View } from 'react-native';
 import { authStore } from '../store/authStore';
+import { UserDataType } from '../types';
 
 const LoginComponent = () => {
   const { login } = authStore();

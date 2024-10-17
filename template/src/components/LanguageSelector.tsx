@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, StyleSheet, View } from 'react-native';
+import { SelectOptionType } from '../types';
+import SelectOption from './SelectOption';
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -9,20 +10,22 @@ const LanguageSelector = () => {
     i18n.changeLanguage(lng);
   };
 
+  const languageOptions: SelectOptionType[] = Object.entries(
+    i18n.languageMap
+  ).map(([code, name]) => ({
+    label: name,
+    value: code,
+  }));
+
   return (
-    <View style={styles.container}>
-      <Button title="English" onPress={() => changeLanguage('en')} />
-      <Button title="Assamese" onPress={() => changeLanguage('as')} />
-    </View>
+    <SelectOption
+      options={languageOptions}
+      value={i18n.languageMap[i18n.language]}
+      onValueSelected={(option) => {
+        changeLanguage(option.value);
+      }}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
-});
 
 export default LanguageSelector;

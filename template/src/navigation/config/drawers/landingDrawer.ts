@@ -1,4 +1,11 @@
+import { DrawerScreenItemType } from '../../../types';
+
 const landingDrawer: DrawerScreenItemType[] = [
+  {
+    name: 'Landing',
+    icon: 'home',
+    component: 'Landing',
+  },
   {
     name: 'Landing',
     icon: 'home',

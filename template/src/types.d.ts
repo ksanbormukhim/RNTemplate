@@ -1,3 +1,10 @@
+import 'i18next';
+declare module 'i18next' {
+  interface i18n {
+    languageMap: { [key: string]: string }; // Define the type for your language map
+  }
+}
+
 type UserDataType = {
   userid: string;
   district: string;
@@ -16,6 +23,8 @@ type LocationDataType = {
   heading: number | null;
   speed: number | null;
 };
+
+type SelectOptionType = { label?: string; value: string };
 
 type DrawerScreenItemType = { name: string; icon: string; hide?: boolean } & (
   | {

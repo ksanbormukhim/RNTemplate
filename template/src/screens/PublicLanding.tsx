@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Text, View } from 'react-native';
-import FetchComponent from '../components/FetchComponent';
+import LanguageSelector from '../components/LanguageSelector';
 import { authStore } from '../store/authStore';
 
 export default function PublicLanding() {
   const { logout } = authStore();
+
+  const [selectedValue, setSelectedValue] = useState('Select an option');
 
   // const [data, loading, error] = useFetch<any>([
   //   {
@@ -23,10 +26,29 @@ export default function PublicLanding() {
 
   // console.log(loading, error, data);
   // const [comments, user] = data;
+  const { t } = useTranslation();
 
   return (
     <View>
       <Text>PublicApp</Text>
+
+      {/* <LanguageSelector /> */}
+
+      {/* <SelectOption
+        options={['Option 1', 'Option 2', 'Option 3', 'Option 4']}
+        value={selectedValue}
+        onValueSelected={setSelectedValue}
+        withClearSelection
+      /> */}
+
+      <View style={{ padding: 20 }}>
+        <LanguageSelector />
+        <Text style={{ marginTop: 20 }}>
+          {t('welcome', { name: 'John Doe' })}
+        </Text>
+        <Text>{t('greeting', { name: 'Alice' })}</Text>
+        <Text>{t('appNameFull')}</Text>
+      </View>
 
       <Button
         title="Log Out"
@@ -64,7 +86,7 @@ export default function PublicLanding() {
 
       {/* <SkeletonLoader visible /> */}
       {/* <ErrorContainer /> */}
-      <FetchComponent
+      {/* <FetchComponent
         requests={[
           { url: 'https://jsonplaceholder.org/users' },
           { url: 'https://jsonplaceholder.org/comments' },
@@ -74,7 +96,7 @@ export default function PublicLanding() {
           if (data) console.log('users', data);
           return <Text>{JSON.stringify(data)}</Text>;
         }}
-      />
+      /> */}
     </View>
   );
 }

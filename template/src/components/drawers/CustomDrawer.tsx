@@ -20,7 +20,8 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { drawerConfig, DrawerConfigKey } from '../../config/drawers';
+import { DrawerConfigKey, drawerConfig } from '../../navigation/config/drawers';
+import { DrawerScreenItemType, MyDrawerProp } from '../../types';
 
 export default function CustomDrawer({
   drawerMap,

@@ -1,14 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import PublicLanding from '../screens/PublicLanding';
+import PublicStackNavigator from '../navigation/PublicStackNavigator';
 
 export default function PublicApp() {
-  const Stack = createNativeStackNavigator();
-
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Public" component={PublicLanding} />
-      {/* Add more screens for PublicApp as needed */}
-    </Stack.Navigator>
-  );
+  //
+  // configure Public App Here
+  //
+  return <PublicStackNavigator />;
 }
