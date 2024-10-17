@@ -102,7 +102,7 @@ function MyDrawerItemList({
 
     if (!route) {
       throw new Error(
-        'Cannot find route! Which is imposable!!!.\n If so please check declaration of screen config.'
+        'Cannot find route! Which is imposable!!!.\n If so please check declaration of screen config. Or if you have define the route in the Navigator'
       );
     }
 

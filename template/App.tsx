@@ -7,7 +7,7 @@ import AdminApp from './src/app/AdminApp';
 import LandingApp from './src/app/LandingApp';
 import PublicApp from './src/app/PublicApp';
 import CommonUI from './src/components/CommonUI';
-import { AuthState, authStore } from './src/store/authStore';
+import { AuthState, useAuthStore } from './src/store/authStore';
 import i18n from './src/translations/i18n';
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
 export default App;
 
 function Root() {
-  const { authState } = authStore();
+  const { authState } = useAuthStore();
 
   function conditionalRender() {
     switch (authState) {

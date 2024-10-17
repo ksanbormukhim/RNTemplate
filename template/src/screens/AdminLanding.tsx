@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Text, View } from 'react-native';
-import { authStore } from '../store/authStore';
 import LanguageSelector from '../components/LanguageSelector';
+import { useAuthStore } from '../store/authStore';
 
 export default function AdminLanding() {
-  const { logout } = authStore();
+  const { logout } = useAuthStore();
   const { t } = useTranslation();
 
   return (

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, TextInput, View } from 'react-native';
-import { authStore } from '../store/authStore';
+import { useAuthStore } from '../store/authStore';
 import { UserDataType } from '../types';
 
 const LoginComponent = () => {
-  const { login } = authStore();
+  const { login } = useAuthStore();
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
 

@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { commonUIStore } from '../store/commonUIStore';
+import { useCommonUIStore } from '../store/commonUIStore';
 
 export default function CommonUI() {
   const {
@@ -19,7 +19,7 @@ export default function CommonUI() {
     hideAlert,
     hideLoading,
     hideToast,
-  } = commonUIStore();
+  } = useCommonUIStore();
 
   return (
     <>

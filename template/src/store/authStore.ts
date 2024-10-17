@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { UserDataType } from '../types';
 
 export enum AuthState {
   none,
@@ -15,7 +16,7 @@ type AuthStateType = {
   logout: () => void;
 };
 
-export const authStore = create<AuthStateType>((set) => {
+export const useAuthStore = create<AuthStateType>((set) => {
   return {
     userData: undefined,
     authState: AuthState.none,

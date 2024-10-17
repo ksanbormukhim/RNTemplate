@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Text, View } from 'react-native';
 import LanguageSelector from '../components/LanguageSelector';
-import { authStore } from '../store/authStore';
+import { useAuthStore } from '../store/authStore';
 
 export default function PublicLanding() {
-  const { logout } = authStore();
+  const { logout } = useAuthStore();
 
   const [selectedValue, setSelectedValue] = useState('Select an option');
 
