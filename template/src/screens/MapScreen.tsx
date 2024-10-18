@@ -21,6 +21,7 @@ export default function MapScreen() {
   });
 
   MapLibreGL.setAccessToken(null);
+  MapLibreGL.requestAndroidLocationPermissions();
 
   const styleJSON = {
     version: 8,
@@ -29,7 +30,8 @@ export default function MapScreen() {
         type: 'raster',
         tiles: [
           // 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          // 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          'https://bhuvan-vec1.nrsc.gov.in/bhuvan/gwc/service/wms/?service=WMS&request=GetMap&layers=india3&format=image/png&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG:3857&bbox={bbox-epsg-3857}',
         ],
         tileSize: 256,
         attribution: '',
