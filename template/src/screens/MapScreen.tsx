@@ -1,13 +1,13 @@
-import MapLibreGL, {
-  Logger as MapLibreLogger,
-} from '@maplibre/maplibre-react-native';
-import React from 'react';
-import { View } from 'react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
+import React, { useEffect, useState } from 'react';
+import { Switch, Text, View } from 'react-native';
+import FoundationIcon from 'react-native-vector-icons/Foundation';
+import { location_pin } from '../assets/assets';
 import indiaMask from '../assets/geoJson/indiaMaskGeoJSON';
 import { useLocationStore } from '../store/locationStore';
 
 export default function MapScreen() {
-  MapLibreLogger.setLogCallback((log) => {
+  MapLibreGL.Logger.setLogCallback((log) => {
     const { message } = log;
 
     if (message.match('Request failed due to a permanent error:')) {
@@ -60,6 +60,22 @@ export default function MapScreen() {
 
   requestLocationPermission();
 
+  const defaultZoom = 4;
+  const defaultCenter = [93.2473, 25.5736];
+
+  const [showMask, setShowMask] = useState(true);
+  const [showLocation, setShowLocation] = useState(false);
+
+  const [zoomLevel, setZoomLevel] = useState<number>(defaultZoom);
+
+  useEffect(() => {
+    if (showLocation) {
+      startLocTracking();
+    } else {
+      stopLocTracking();
+    }
+  }, [showLocation]);
+
   return (
     <View
       style={[
@@ -78,16 +94,12 @@ export default function MapScreen() {
         }}
         attributionPosition={{ bottom: 8, right: 0 }}
         styleJSON={JSON.stringify(styleJSON)}
+        styleURL=""
+        onRegionDidChange={(feature: any) => {
+          setZoomLevel(feature.properties.zoomLevel);
+        }}
       >
-        <MapLibreGL.UserLocation animated visible showsUserHeadingIndicator />
-        <MapLibreGL.Camera
-          followUserLocation
-          zoomLevel={3}
-          animationMode="flyTo"
-          animationDuration={10}
-        >
-          {/* Add custom Icon here
-          
+        <MapLibreGL.UserLocation animated visible={showLocation}>
           <MapLibreGL.SymbolLayer
             id="userLocation"
             style={{
@@ -96,9 +108,16 @@ export default function MapScreen() {
               iconOffset: [0, -200],
             }}
           />
-          
-          */}
-        </MapLibreGL.Camera>
+        </MapLibreGL.UserLocation>
+
+        <MapLibreGL.Camera
+          // followUserLocation
+          key="camera"
+          zoomLevel={zoomLevel}
+          animationMode="flyTo"
+          animationDuration={10}
+          centerCoordinate={defaultCenter}
+        />
 
         <MapLibreGL.ShapeSource id="indiaMask" shape={indiaMask}>
           <MapLibreGL.LineLayer
@@ -109,19 +128,122 @@ export default function MapScreen() {
               lineWidth: 1,
               lineCap: 'round',
               lineJoin: 'round',
+              visibility: showMask ? 'visible' : 'none',
             }}
           />
           <MapLibreGL.FillLayer
             id="indiaMaskFill"
-            style={{ fillColor: 'blue', fillOpacity: 0.3 }}
+            style={{
+              fillColor: 'blue',
+              fillOpacity: 0.3,
+              visibility: showMask ? 'visible' : 'none',
+            }}
           />
         </MapLibreGL.ShapeSource>
+
         {/* <MapLibreGL.Callout></MapLibreGL.Callout> */}
         {/* <MapLibreGL.Annotation></MapLibreGL.Annotation> */}
         {/* <MapLibreGL.Annotation ></MapLibreGL.Annotation> */}
-        {/* <MapLibreGL.NativeUserLocation></MapLibreGL.NativeUserLocation> */}
       </MapLibreGL.MapView>
-      <></>
+      {/* UI */}
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: 'transparent',
+          flexDirection: 'row',
+        }}
+        pointerEvents="box-none"
+      >
+        <View
+          style={{
+            width: '10%',
+            height: 90,
+            gap: 10,
+            margin: 10,
+          }}
+        >
+          <FoundationIcon
+            name="zoom-out"
+            size={24}
+            style={{
+              backgroundColor: '#fff',
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              borderRadius: 10,
+              elevation: 10,
+            }}
+            onPress={() => {
+              setZoomLevel((curZoom) => curZoom - 0.5);
+            }}
+          />
+
+          <FoundationIcon
+            name="zoom-in"
+            size={24}
+            style={{
+              backgroundColor: '#fff',
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              borderRadius: 10,
+              elevation: 10,
+            }}
+            onPress={() => {
+              setZoomLevel((curZoom) => curZoom + 0.5);
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            backgroundColor: '#fff',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 10,
+            padding: 10,
+            width: '30%',
+            height: 50,
+            elevation: 10,
+            borderRadius: 10,
+          }}
+          pointerEvents="box-none"
+        >
+          <Text>Toggle Mask</Text>
+          <Switch value={showMask} onValueChange={(v) => setShowMask(v)} />
+        </View>
+
+        <View
+          style={{
+            backgroundColor: '#fff',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 10,
+            padding: 10,
+            width: '30%',
+            height: 50,
+            elevation: 10,
+            borderRadius: 10,
+          }}
+          pointerEvents="box-none"
+        >
+          <Text>Toggle Location</Text>
+          <Switch
+            value={showLocation}
+            onValueChange={(v) => setShowLocation(v)}
+          />
+        </View>
+      </View>
     </View>
   );
 }
