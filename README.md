@@ -30,7 +30,7 @@ This template is built to simplify the initial setup of a React Native project b
 To use this template, simply run the following command using `@react-native-community/cli`:
 
 ```bash
-npx @react-native-community/cli@latest init AwesomeProject --template https://github.com/ksanbormukhim/RNTemplate.git
+npx @react-native-community/cli@0.73.0 init AwesomeProject  --version 0.73.0 --template https://github.com/ksanbormukhim/RNTemplate.git
 ```
 
 This command will initialize a new React Native project named `AwesomeProject` using the `RNTemplate`.
