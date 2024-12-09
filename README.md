@@ -51,7 +51,7 @@ Follow these steps to set up a new project using the template:
 1. **Open a terminal** and run:
 
    ```bash
-   npx @react-native-community/cli@latest init AwesomeProject --template https://github.com/ksanbormukhim/RNTemplate.git
+   npx @react-native-community/cli@0.73.0 init AwesomeProject  --version 0.73.0 --template https://github.com/ksanbormukhim/RNTemplate.git
    ```
 
 2. **Navigate into the project directory**:
