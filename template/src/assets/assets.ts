@@ -17,7 +17,7 @@ import report from './icons/report.gif';
 import routing_icon from './icons/routing-icon.png';
 import warning from './icons/warning.png';
 
-import bg from './images/bg.jpg';
+import bg from './images/back.jpg';
 import dot from './images/dot.png';
 import image1 from './images/image1.jpg';
 import main from './images/main.png';
