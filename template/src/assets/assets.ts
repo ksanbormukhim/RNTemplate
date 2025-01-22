@@ -8,7 +8,7 @@ import emblem_dark from './icons/emblem-dark.png';
 import farmer from './icons/farmer.gif';
 import heartbeat from './icons/heartbeat.gif';
 import list from './icons/list.gif';
-import location_pin from './icons/location-pin.png';
+import location_pin from './icons/location.png';
 import my_gov1 from './icons/my-gov1.png';
 import nav from './icons/navigation.png';
 import nesac from './icons/nesac.png';

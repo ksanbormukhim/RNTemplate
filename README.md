@@ -60,16 +60,27 @@ Follow these steps to set up a new project using the template:
    cd AwesomeProject
    ```
 
-3. **Install dependencies**:
+3. **Clean Android Project**:
+
+   ```bash
+   cd android
+   gradlew clean or ./gradlew clean
+   cd..
+   ```
+
+4. **Install dependencies**:
 
    ```bash
    npm install
    ```
 
-4. **Run the Android project**:
+5. **Run the Android project**:
 
    ```bash
    npx react-native run-android
+   or
+   npm start
+   npm run android
    ```
 
 ## Project Structure
