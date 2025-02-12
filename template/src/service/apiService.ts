@@ -25,12 +25,24 @@ const apiRequest = async <T>(
 };
 
 const apiService = {
+  buildQueryString: (params: Record<string, any>) => {
+    const query = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        query.append(key, String(value));
+      }
+    });
+    return query.toString();
+  },
+
   // GET request
   get: async <T>(
     url: string,
+    params?: Record<string, any>,
     init?: Omit<RequestInit, 'method'>
   ): Promise<[number, T | any]> => {
-    return await apiRequest(url, { method: 'GET', ...init });
+    const queryString = params ? `?${apiService.buildQueryString(params)}` : '';
+    return await apiRequest(`${url}`, { method: 'GET', ...init });
   },
 
   //   POST request (FormData)

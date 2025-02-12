@@ -1,15 +1,8 @@
 import { DrawerScreenItemType } from '../../../types';
 
 const landingDrawer: DrawerScreenItemType[] = [
-  { name: 'Landing', icon: 'home', component: 'Landing' },
-  {
-    name: 'Login',
-    icon: 'log-in',
-    children: [
-      { name: 'Public Login', icon: 'log-in', component: 'LoginPublic' },
-      { name: 'Admin Login', icon: 'log-in', component: 'LoginAdmin' },
-    ],
-  },
+  { name: 'Admin', icon: 'home', component: 'Landing' },
+  { name: 'Screen 1', icon: 'medkit-outline', component: 'Screen1' },
   {
     name: 'Map Landing',
     icon: 'map',
@@ -19,7 +12,8 @@ const landingDrawer: DrawerScreenItemType[] = [
     name: 'Screens',
     icon: 'attach',
     children: [
-      { name: 'Screen 2', icon: 'medkit-outline', component: 'Screen2' },
+      { name: 'Screen 1', icon: 'medkit-outline', component: 'Screen1' },
+      { name: 'Screen 1', icon: 'medkit-outline', component: 'Screen2' },
       { name: 'Screen 3', icon: 'medkit-outline', component: 'Screen3' },
       { name: 'Screen 4', icon: 'medkit-outline', component: 'Screen4' },
     ],

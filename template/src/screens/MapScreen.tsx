@@ -134,6 +134,7 @@ export default function MapScreen() {
           <MapLibreGL.FillLayer
             id="indiaMaskFill"
             style={{
+              // fillColor: 'black',
               fillColor: 'blue',
               fillOpacity: 0.3,
               visibility: showMask ? 'visible' : 'none',

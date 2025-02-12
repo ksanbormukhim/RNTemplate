@@ -1,5 +1,5 @@
 import NESDR_Logo from './icons/NESDR-Logo.png';
-import alert from './icons/alert.gif';
+import alert_ico from './icons/alert.gif';
 import ambulance from './icons/ambulance.gif';
 import cow from './icons/cow.gif';
 import digitalIndia from './icons/digitalIndia.png';
@@ -23,8 +23,7 @@ import image1 from './images/image1.jpg';
 import main from './images/main.png';
 
 export {
-  NESDR_Logo,
-  alert,
+  alert_ico,
   ambulance,
   bg,
   cow,
@@ -41,6 +40,7 @@ export {
   my_gov1,
   nav,
   nesac,
+  NESDR_Logo,
   profile,
   report,
   routing_icon,

@@ -37,7 +37,7 @@ const SelectOption = ({
           height: 40,
           justifyContent: 'center',
           alignItems: 'center',
-          borderRadius: 5,
+          borderRadius: 3,
         },
       ]}
     >
@@ -46,7 +46,7 @@ const SelectOption = ({
           {
             borderWidth: 1,
             borderColor: '#ccc',
-            borderRadius: 5,
+            borderRadius: 3,
             backgroundColor: '#f8f8f8',
             justifyContent: 'center',
             alignItems: 'center',
@@ -84,7 +84,7 @@ const SelectOption = ({
               {
                 borderWidth: 1,
                 borderColor: '#ccc',
-                borderRadius: 5,
+                borderRadius: 3,
                 backgroundColor: '#f8f8f8',
                 width: '90%',
                 padding: '2%',

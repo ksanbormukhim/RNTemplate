@@ -106,7 +106,7 @@ export default function CommonUI() {
       <Modal animationType="slide" transparent visible={!!toast}>
         <View style={styles.bottomedView}>
           <View style={styles.toastView}>
-            <ActivityIndicator />
+            {/* <ActivityIndicator /> */}
             <Text numberOfLines={2} style={{ flex: 1 }}>
               {toast}
             </Text>

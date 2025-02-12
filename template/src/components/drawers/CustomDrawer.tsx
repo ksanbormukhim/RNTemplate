@@ -22,6 +22,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { DrawerConfigKey, drawerConfig } from '../../navigation/config/drawers';
 import { DrawerScreenItemType, MyDrawerProp } from '../../types';
+import DrawerFooter from './DrawerFooter';
+import DrawerHeader from './DrawerHeader';
 
 export default function CustomDrawer({
   drawerMap,
@@ -44,13 +46,17 @@ export default function CustomDrawer({
   const { drawerContentStyle, drawerContentContainerStyle } = focusedOptions;
 
   return (
-    <DrawerContentScrollView
-      {...rest}
-      contentContainerStyle={drawerContentContainerStyle}
-      style={drawerContentStyle}
-    >
-      <MyDrawerItemList items={items} props={props} />
-    </DrawerContentScrollView>
+    <>
+      <DrawerHeader />
+      <DrawerContentScrollView
+        {...rest}
+        contentContainerStyle={drawerContentContainerStyle}
+        style={drawerContentStyle}
+      >
+        <MyDrawerItemList items={items} props={props} />
+      </DrawerContentScrollView>
+      <DrawerFooter />
+    </>
   );
 }
 

@@ -17,9 +17,11 @@ function App() {
 
   return (
     <I18nextProvider i18n={i18n}>
+      {/* I18nextProvider:  Language Provider*/}
       <SafeAreaView style={{ flex: 1 }}>
         <Root />
         <CommonUI />
+        {/* CommonUI:  Alert And Toast Provider*/}
       </SafeAreaView>
     </I18nextProvider>
   );
