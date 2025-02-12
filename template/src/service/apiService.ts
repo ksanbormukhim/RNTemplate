@@ -1,12 +1,12 @@
 const apiRequest = async <T>(
   url: string,
   options: RequestInit
-): Promise<[number, T | any]> => {
+): Promise<[number, T, string | null]> => {
   try {
     const response = await fetch(url, options);
 
     const contentType = response.headers.get('Content-Type');
-    let result: any;
+    let result;
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -18,9 +18,9 @@ const apiRequest = async <T>(
       result = await response.text();
     }
 
-    return [response.status, result];
+    return [response.status, result, contentType];
   } catch (error: any) {
-    return [500, error];
+    return [500, error, null];
   }
 };
 
@@ -40,9 +40,14 @@ const apiService = {
     url: string,
     params?: Record<string, any>,
     init?: Omit<RequestInit, 'method'>
-  ): Promise<[number, T | any]> => {
+  ): Promise<[number, T, string | null]> => {
     const queryString = params ? `?${apiService.buildQueryString(params)}` : '';
-    return await apiRequest(`${url}`, { method: 'GET', ...init });
+    console.log(`${url}${queryString}`);
+
+    return await apiRequest<T>(`${url}${queryString}`, {
+      method: 'GET',
+      ...init,
+    });
   },
 
   //   POST request (FormData)
@@ -50,8 +55,8 @@ const apiService = {
     url: string,
     formData: FormData,
     init?: Omit<RequestInit, 'method' | 'headers' | 'body'>
-  ): Promise<[number, T | any]> => {
-    return await apiRequest(url, {
+  ): Promise<[number, T | any, string | null]> => {
+    return await apiRequest<T>(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,16 +70,16 @@ const apiService = {
   delete: async <T>(
     url: string,
     init?: Omit<RequestInit, 'method'>
-  ): Promise<[number, T | any]> => {
-    return await apiRequest(url, { method: 'DELETE', ...init });
+  ): Promise<[number, T | any, string | null]> => {
+    return await apiRequest<T>(url, { method: 'DELETE', ...init });
   },
 
   // PUT request (optional)
   //   put: async <T >(
   //     url: string,
   //     data: any
-  //   ): Promise<[number, T | any]> => {
-  //     return await apiRequest(url, {
+  //   ): Promise<[number, T | any, string | null]> => {
+  //     return await apiRequest<T>(url, {
   //       method: 'PUT',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -87,8 +92,8 @@ const apiService = {
   //   patch: async <T >(
   //     url: string,
   //     data: any
-  //   ): Promise<[number, T | any]> => {
-  //     return await apiRequest(url, {
+  //   ): Promise<[number, T | any, string | null]> => {
+  //     return await apiRequest<T>(url, {
   //       method: 'PATCH',
   //       headers: {
   //         'Content-Type': 'application/json',

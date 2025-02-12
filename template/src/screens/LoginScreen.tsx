@@ -3,17 +3,26 @@ import { GestureResponderEvent, Text, View } from 'react-native';
 import StyledButton from '../components/StyledButton';
 import TextInputWithLabel from '../components/TextInputWithLabel';
 import apiService from '../service/apiService';
+import { useAuthStore } from '../store/authStore';
+import { UserDataType } from '../types';
+import { urls } from '../utils/urls';
 
 const LoginScreen = ({ loginMode, navigation }: any) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
+  const { login } = useAuthStore();
+
   const handleLogin = async (event: GestureResponderEvent) => {
-    // console.log('s');
-    // const r = await apiService.get(
-    //   'http://172.16.3.124/api/mobile-template-api/login.php'
-    // );
-    // console.log('ss', r);
+    const [status, result, contentType] = await apiService.get<UserDataType>(
+      urls.login,
+      {
+        email: email,
+        pass: pass,
+        type: loginMode,
+      }
+    );
+    login(result);
   };
 
   return (
